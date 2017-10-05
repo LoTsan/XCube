@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>PA44 性能计算器</title>
+    <script src="./c.js"></script>
+    <script>(function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] ||
+        function() { (i[r].q = i[r].q || []).push(arguments)
+        },
+        i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-100352001-1', 'auto');
+      ga('send', 'pageview');</script>
+  </head>
+  
+  <body onload="initWB();initFl();">
+    <a name="top"></a>
+    <center style="width: 600px;margin: 0 auto;">
+      <h1>PA44 Weight and Balance Calculator</h1>
+      <small>
+        <a style="color:#C0C0C0">v0.9 Public Beta
+          <br></a></small>
+      <small>
+        <a style="color:#C0C0C0">Last Update:05/10/2017
+          <br></a></small>
+      <form>
+        <table border="0" cellspacing="0" cellpadding="0" width="530">
+          <tbody>
+            <tr>
+              <td align="center">
+                <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                  <tbody>
+                    <tr align="center">
+                      <td colspan="2">Data for PA44</td>
+                      <td>Weight
+                        <br>(lbs)</td>
+                      <td>Arm
+                        <br>(ins)</td>
+                      <td>Moment
+                        <br>(in-lbs)</td></tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Basic Empty Weight</b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="ew" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="ewarm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="ewmom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Row 1</b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="f1w" onblur="doCalc()">
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="f1arm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="f1mom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Row 2</b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="r1w" onblur="doCalc()">
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="r1arm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="r1mom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Baggage Area (Max 200 lbs)
+                          <br></b></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="bag1w" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="bag1arm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="bag1mom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Zero Fuel Weight (ZFW)</b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="zfw" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="zfwarm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="zfwmom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Fuel (Max 639lbs)</b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="fuel1w" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="fuel1arm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="fuel1mom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Ramp Weight (RW)</b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="rpw" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="rpwarm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="rpwmom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Taxi Allowance </b>
+                      </td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="txfuel1w" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="txfuel1arm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="8" name="txfuel1mom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Take Off Weight (TOW)
+                          <br></b></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="totwt" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="totarm" onblur="doCalc()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="9" name="totmom"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" align="center">
+                        <input class="button white" type="button" name="doit" value="Calculate" onclick="doCalc()">
+                        <input class="button white" type="button" name="undoit" value="Reset" onclick="initWB()"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <small>本工具计算结果仅用于参考 不可用于实际飞行计划
+                  <br>由于使用本软件所产生的一切法律及连带责任与作者无关
+                  <br>
+                  <b>The results of this tool are for reference only</b>
+                  <b>Can not be used for actual flight planning</b>
+                </small>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <table border="1" cellspacing="0" cellpadding="3" width="100%">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <br>
+                          <canvas id="wbCanvas" width="544px" height="768px" style="background-image: url('./000.jpg'); width: 544px; height: 768px;"></canvas>
+                        </td>
+                      </tr>
+                </p>
+      </form>
+      <form>
+        <table border="1" cellspacing="0" cellpadding="5" width="554">
+          <h1 align="center" style=" margin-top: 20px;">PA44 Fuel Calculator</h1>
+          <tbody>
+            <tr align="center">
+              <td colspan="2">Fuel Calculator</td>
+              <td>Min</td>
+              <td>L or KG</td></tr>
+            <tr>
+              <td colspan="2">
+                <b>Climb</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="ClimbMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="ClimbL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Cruise</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="CruiseMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="CruiseL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Alternate</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="AlternateMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="AlternateL" onblur="doFuel()"></td>
+            </tr>
+            <tr style="background-color: yellow;">
+              <td colspan="2">
+                <b>Sub-Total</b>
+              </td>
+              <td align="center">
+                <input style="background-color: yellow;" type="text" id="formblank" size="7" name="SubMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input style="background-color: yellow;" type="text" id="formblank" size="7" name="SubL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Variable Reserve</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="VariableMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="VariableL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Fixed Reserve</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="FixedMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="FixedL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Holding</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="HoldingMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="HoldingL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Taxi, T/O, Ldg(8L)</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="TaxiMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="TaxiL" onblur="doFuel()"></td>
+            </tr>
+            <tr style=" background-color: darkgray;">
+              <td colspan="2">
+                <b>Fuel Required</b>
+              </td>
+              <td align="center">
+                <input style="background-color: darkgray;" type="text" id="formblank" size="7" name="RequiredMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input style="background-color: darkgray;" type="text" id="formblank" size="7" name="RequiredL" onblur="doFuel()"></td>
+            </tr>
+            <tr style="background-color: darkgray;">
+              <td colspan="2">
+                <b>Fuel Margin</b>
+              </td>
+              <td align="center">
+                <input style="background-color: darkgray;" type="text" id="formblank" size="7" name="MarginMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input style="background-color: darkgray;" type="text" id="formblank" size="7" name="MarginL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b>Endurance</b>
+              </td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="EnduranceMin" onblur="doFuel()"></td>
+              <td align="center">
+                <input type="text" id="formblank" size="7" name="EnduranceL" onblur="doFuel()"></td>
+            </tr>
+            <tr>
+              <td colspan="5" align="center">
+                <input class="button white" type="button" name="doit" value="Calculate" onclick="doFuel()">
+                <input class="button white" type="button" name="undoit" value="Reset" onclick="initFl()"></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <h1 align="center" style=" margin-top: 20px;">Wind Vector Calculator</h1>
+      <form>
+        <table border="0" cellspacing="0" cellpadding="0" width="554">
+          <tbody>
+            <tr>
+              <td align="center">
+                <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                  <tbody>
+                    <tr align="center">
+                      <td>TAS</td>
+                      <td>TR
+                        <br>(M)</td>
+                      <td>Wind Vector</td>
+                      <td>HDG
+                        <br>(M)</td>
+                      <td>G/S</td></tr>
+                    <tr>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="windhtas" onblur="windv()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="windhcrs" onblur="windv()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="6" name="windhdir" onblur="windv()">/
+                        <input type="text" id="formblank" size="6" name="windhspeed" onblur="windv()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="windhdg" onblur="windv()"></td>
+                      <td align="center">
+                        <input type="text" id="formblank" size="7" name="windgs" onblur="windv()"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" align="center">
+                        <input class="button white" type="button" name="doit" value="Calculate" onclick="windv()">
+                        <input class="button white" type="button" name="undoit" value="Reset" onclick="initWB()"></td>
+                    </tr>
+                  </tbody>
+                </table>
+      </form>
+      <h1 align="center" style="
+      margin-top: 20px;
+      ">风力与降水概况</h1>
+      <iframe sandbox="allow-scripts allow-same-origin" src="https://earth.nullschool.net/#current/wind/isobaric/1000hPa/overlay=precip_3hr/orthographic=-215.53,-37.02,3000/loc=145.210,-38.000" width="554" height="400" frameborder="0">
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    </center>
+  </body>
+  <footer>
+    <div class="contact-section">
+      <div class="container">
+        <h3>Any Bug?</br>Contact me</h3>
+        <a class="cbutton" href="mailto:i@tsan.in">i@tsan.in</a></div>
+    </div>
+    <div class="container">
+      <div class="footer-top">
+        <p>© 2017
+          <span>Tsan.</span>All rights reserved</p></div>
+    </div>
+  </footer>
+  <style type="text/css">#formblank { border-style:none; text-align:center;}/* white */.white { color: #000000; border: solid 1px #b7b7b7; background: #fff; background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed)); background: -moz-linear-gradient(top, #fff, #ededed); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');}.white:hover { background: #ededed; background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc)); background: -moz-linear-gradient(top, #fff, #dcdcdc); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');}.white:active { color: #999; background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff)); background: -moz-linear-gradient(top, #ededed, #fff); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');}.button { display: inline-block; zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */ *display: inline; vertical-align: baseline; margin: 0 2px; outline: none; cursor: pointer; text-align: center; text-decoration: none; font: 14px/100% Arial, Helvetica, sans-serif; padding: .5em 2em .55em; -webkit-border-radius: .5em; -moz-border-radius: .5em; border-radius: .5em; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2); box-shadow: 0 1px 2px rgba(0,0,0,.2);}.button:hover { text-decoration: none;}.button:active { position: relative; top: 1px;}.main td{ height:30px; border:#CCCCCC 1px solid;}.contact-section { padding: 4em 0;}.contact-section h3 { padding-bottom: 20px; margin: 0; text-align: center}.cbutton { border-radius: 4px; display: block; width: 260px; margin: 0 auto; background-color: #285d5a; color: #fff; text-align: center; padding: 6px 0; font-size: 20px; border-bottom: 4px solid #9386ff; text-decoration: none; position: relative}footer { padding: 2em 0; text-align: center}footer a { color: inherit; text-decoration: none}footer a:hover { text-decoration: none; color: inherit}</style></html>
